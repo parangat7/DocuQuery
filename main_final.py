@@ -1,4 +1,6 @@
 import streamlit as st
+# DEBUG: Print all available secret names (but not values)
+st.write("🔍 Debug - Secrets found:", st.secrets.keys())
 from pypdf import PdfReader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import FAISS
