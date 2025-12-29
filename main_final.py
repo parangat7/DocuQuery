@@ -1,6 +1,18 @@
 import streamlit as st
 # DEBUG: Print all available secret names (but not values)
 st.write("🔍 Debug - Secrets found:", st.secrets.keys())
+import os
+import asyncio  # <--- 1. Add this import
+
+# --- BUG FIX: Create a Loop for the Google AI Library ---
+try:
+    asyncio.get_running_loop()
+except RuntimeError:
+    asyncio.set_event_loop(asyncio.new_event_loop())
+# -------------------------------------------------------
+
+from langchain_google_genai import ChatGoogleGenerativeAI
+# ... (Keep all your other imports and code below here exactly as they were)
 from pypdf import PdfReader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import FAISS
