@@ -14,17 +14,16 @@ load_dotenv()
 
 # --- VALIDATION: Check Key in both .env (Local) and Secrets (Cloud) ---
 api_key = os.getenv("GOOGLE_API_KEY")
+
+# If no local key, check Streamlit Cloud Secrets
 if not api_key:
     try:
-        # Check Streamlit Cloud Secrets
         api_key = st.secrets["GOOGLE_API_KEY"]
     except:
         pass
 
-# Force the key into the environment so libraries can find it
-if api_key:
-    os.environ["GOOGLE_API_KEY"] = api_key
-else:
+# Final check
+if not api_key:
     st.error("❌ GOOGLE_API_KEY not found! Please add it to .env (local) or Secrets (cloud).")
     st.stop()
 
